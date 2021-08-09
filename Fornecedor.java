@@ -9,7 +9,6 @@ public class Fornecedor extends Endereco {
 	private String produto;
 	private int qtd;
 	
-	
 	public String getNomeFornecedor() {
 		return nomeFornecedor;
 	}

@@ -9,14 +9,6 @@ public class Cliente extends Endereco {
 	private String email;
 	private Date nascimento;
 	
-	Cliente(String nomeCliente, String cpf, String email, Date nascimento){
-		this.nomeCliente = nomeCliente;
-		this.cpf = cpf;
-		this.email = email;
-		this.nascimento = nascimento;
-		
-	}
-	
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
@@ -41,12 +33,5 @@ public class Cliente extends Endereco {
 	public void setNascimento(Date nascimento) {
 		this.nascimento = nascimento;
 	}
-	public String getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-	
 	
 }

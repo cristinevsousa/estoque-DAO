@@ -2,9 +2,8 @@ package SA4;
 
 import java.util.ArrayList;
 
-public class Pedido extends Produto {
+public class Pedido {
 
 	ArrayList<Produto> pedido = new ArrayList<>();
-	
 	
 }

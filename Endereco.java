@@ -9,8 +9,6 @@ public class Endereco {
 	private String bairro;
 	private int numero;
 	
-	
-	
 	public String getEstado() {
 		return estado;
 	}
