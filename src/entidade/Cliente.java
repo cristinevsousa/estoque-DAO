@@ -2,18 +2,18 @@ package entidade;
 
 import java.util.Date;
 
-public class Cliente {
+public class Cliente extends Endereco {
 
-	private int id;
+	private Long id;
 	private String nomeCliente;
 	private String cpf;
-	private Date nascimento;
 	private String email;
+	private Date nascimento;
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNomeCliente() {
