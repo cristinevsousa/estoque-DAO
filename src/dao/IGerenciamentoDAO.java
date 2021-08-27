@@ -7,5 +7,5 @@ public interface IGerenciamentoDAO {
 	public boolean atualizar();
 	
 	public boolean excluir();
-	
+
 }

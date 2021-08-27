@@ -11,6 +11,7 @@ import utils.Conexao;
 public class ClienteDAO implements IGerenciamentoDAO {
 
 	private Cliente cliente;
+	
 	private Conexao conexao;
 	
 	public Cliente getCliente() {
@@ -102,7 +103,7 @@ public class ClienteDAO implements IGerenciamentoDAO {
 			while(result.next()) {
 				
 				Cliente cliente = new Cliente();
-				cliente.setId(result.getInt("id"));
+				cliente.setId(result.getLong("id"));
 				cliente.setNomeCliente(result.getString("nome"));
 				
 				clientes.add(cliente);
@@ -134,7 +135,7 @@ public class ClienteDAO implements IGerenciamentoDAO {
 			while(result.next()) {
 				
 				Cliente cliente = new Cliente();
-				cliente.setId(result.getInt("id"));
+				cliente.setId(result.getLong("id"));
 				cliente.setNomeCliente(result.getString("nome"));
 				
 				clientes.add(cliente);
