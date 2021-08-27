@@ -2,13 +2,12 @@ package entidade;
 
 import java.util.Date;
 
-public class Fornecedor {
+public class Fornecedor extends Endereco {
 
-	private int id;
 	private String nomeFornecedor;
 	private Date dataEntrega;
 	private String produto;
-	private int qtdEntregue;
+	private int qtd;
 	
 	public String getNomeFornecedor() {
 		return nomeFornecedor;
@@ -29,16 +28,10 @@ public class Fornecedor {
 		this.produto = produto;
 	}
 	public int getQtd() {
-		return qtdEntregue;
+		return qtd;
 	}
-	public void setQtd(int qtdEntregue) {
-		this.qtdEntregue = qtdEntregue;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
+	public void setQtd(int qtd) {
+		this.qtd = qtd;
 	}
 	
 	
