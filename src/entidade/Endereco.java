@@ -2,12 +2,13 @@ package entidade;
 
 public class Endereco {
 
-	private String estado;
+	private int id;
 	private String cidade;
 	private String cep;
+	private String estado;
 	private String rua;
-	private String bairro;
 	private int numero;
+	private String bairro;
 	
 	public String getEstado() {
 		return estado;
@@ -15,7 +16,7 @@ public class Endereco {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public String getCidade() {
+	public  String getCidade() {
 		return cidade;
 	}
 	public void setCidade(String cidade) {
@@ -44,6 +45,18 @@ public class Endereco {
 	}
 	public void setNumero(int numero) {
 		this.numero = numero;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	@Override
+	public String toString() {
+		return "Endereco [id=" + id + ", cidade=" + cidade + ", cep=" + cep + ", estado=" + estado + ", rua=" + rua
+				+ ", numero=" + numero + ", bairro=" + bairro + "]";
 	}
 	
 	
