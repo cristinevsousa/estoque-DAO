@@ -2,6 +2,7 @@ package entidade;
 
 public class Endereco {
 
+	private Long id;
 	private String estado;
 	private String cidade;
 	private String cep;
@@ -9,6 +10,12 @@ public class Endereco {
 	private String bairro;
 	private int numero;
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getEstado() {
 		return estado;
 	}
@@ -45,6 +52,5 @@ public class Endereco {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	
 	
 }

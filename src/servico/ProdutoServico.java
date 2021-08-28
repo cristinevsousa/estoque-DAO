@@ -2,22 +2,22 @@ package servico;
 
 import java.util.List;
 
-import dao.ClienteDAO;
-import entidade.Cliente;
+import dao.ProdutoDAO;
+import entidade.Produto;
 import utils.Conexao;
 
-public class ClienteServico {
+public class ProdutoServico {
 
-	ClienteDAO dao;
+	ProdutoDAO dao;
 	Conexao conexao;
 	
-	public ClienteServico() {
-		dao = new ClienteDAO();
+	public ProdutoServico() {
+		dao = new ProdutoDAO();
 		conexao = new Conexao();
 	}
 	
-	public long inserirCliente(Cliente cliente) {
-		dao.setCliente(cliente);
+	public long inserirProduto(Produto produto) {
+		dao.setProduto(produto);
 		dao.setConexao(conexao);
 		
 		try {
@@ -43,8 +43,8 @@ public class ClienteServico {
 		
 	}
 	
-	public String alterarCliente(Cliente cliente) {
-		dao.setCliente(cliente);
+	public String alterarProduto(Produto produto) {
+		dao.setProduto(produto);
 		dao.setConexao(conexao);
 		
 		try {
@@ -64,12 +64,12 @@ public class ClienteServico {
 			return e.getMessage();
 		}
 		
-		return "Cliente " + cliente.getNomeCliente() + " alterado com sucesso!";
+		return "Produto " + produto.getNomeProduto() + " alterado com sucesso!";
 	}
 
 	
-	public String excluirCliente(Cliente cliente) {
-		dao.setCliente(cliente);
+	public String excluirProduto(Produto produto) {
+		dao.setProduto(produto);
 		dao.setConexao(conexao);
 		
 		try {
@@ -89,21 +89,21 @@ public class ClienteServico {
 			return e.getMessage();
 		}
 		
-		return "Cliente " + cliente.getNomeCliente() + " excluído com sucesso!";
+		return "Produto " + produto.getNomeProduto() + " excluído com sucesso!";
 	}
 	
-	public List<Cliente> buscarTodosClientes() {
+	public List<Produto> buscarTodosProdutos() {
 		dao.setConexao(conexao);
 		
 		try {
 			
 			conexao.conecta();
 			
-			List<Cliente> clientes = dao.buscarClientes();
+			List<Produto> produtos = dao.buscarProdutos();
 			
 			conexao.fechar();
 			
-			return clientes;
+			return produtos;
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -112,18 +112,18 @@ public class ClienteServico {
 		
 	}
 
-	public List<Cliente> buscarClientesPorNome(String nome) {
+	public List<Produto> buscarProdutosPorNome(String nome) {
 		dao.setConexao(conexao);
 		
 		try {
 			
 			conexao.conecta();
 			
-			List<Cliente> clientes = dao.buscarClientesPorNome(nome);
+			List<Produto> produtos = dao.buscarProdutosPorNome(nome);
 			
 			conexao.fechar();
 			
-			return clientes;
+			return produtos;
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -131,5 +131,6 @@ public class ClienteServico {
 		}
 		
 	}
+	
 	
 }

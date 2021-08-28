@@ -2,7 +2,7 @@ package dao;
 
 public interface IGerenciamentoDAO {
 	
-	public boolean inserir();
+	public long inserir();
 	
 	public boolean atualizar();
 	

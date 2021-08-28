@@ -2,13 +2,14 @@ package entidade;
 
 import java.util.Date;
 
-public class Cliente extends Endereco {
+public class Cliente {
 
 	private Long id;
 	private String nomeCliente;
 	private String cpf;
 	private String email;
 	private Date nascimento;
+	private Endereco endereco;
 	
 	public Long getId() {
 		return id;
@@ -40,9 +41,16 @@ public class Cliente extends Endereco {
 	public void setNascimento(Date nascimento) {
 		this.nascimento = nascimento;
 	}
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 	
 	@Override
 	public String toString() {
 		return "Cliente [codigo=" + id + ", nome=" + nomeCliente + "]";
 	}
+	
 }
