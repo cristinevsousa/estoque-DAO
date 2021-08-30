@@ -2,10 +2,10 @@ package dao;
 
 public interface IGerenciamentoDAO {
 	
-	public long inserir();
+	public int inserir();
 	
 	public boolean atualizar();
 	
 	public boolean excluir();
-
+	
 }

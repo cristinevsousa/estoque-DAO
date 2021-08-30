@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class Conexao {
 	
-	final static String URL = "jdbc:mysql://localhost:3306/db_sa4";	
+	final static String URL = "jdbc:mysql://127.0.0.1:3306/db_sa4";	
 	final static String USER = "root";
 	final static String PASS = "Cris123456!@";
 	final static String DRIVER = "com.mysql.cj.jdbc.Driver";

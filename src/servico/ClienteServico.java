@@ -16,7 +16,7 @@ public class ClienteServico {
 		conexao = new Conexao();
 	}
 	
-	public long inserirCliente(Cliente cliente) {
+	public int inserirCliente(Cliente cliente) {
 		dao.setCliente(cliente);
 		dao.setConexao(conexao);
 		
@@ -24,7 +24,7 @@ public class ClienteServico {
 			
 			conexao.conecta();
 			
-			long id = dao.inserir();
+			int id = dao.inserir();
 			
 			if (id > 0) {
 				conexao.confirmarTransacao();

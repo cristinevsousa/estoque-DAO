@@ -31,22 +31,22 @@ public class ProdutoDAO implements IGerenciamentoDAO {
 	}
 
 	@Override
-	public long inserir() {
+	public int inserir() {
 		try {
 			
 			PreparedStatement pst = this.conexao.getConexao().prepareStatement("INSERT INTO produto (nome, preco, qtd, codigo_barra) VALUES (?,?,?,?)", 1); // 1 significando parâmetro para retornar valor da PK
 			
 			pst.setString(1, produto.getNomeProduto());
 			pst.setDouble(2, produto.getPreco());
-			pst.setInt(3, produto.getQtd());
+			pst.setInt(3, produto.getQtdEstoque());
 			pst.setLong(4, produto.getCodigoBarra());
 			
 			pst.executeUpdate();
 			
-			ResultSet keys = pst.getGeneratedKeys(); // método da classe PreparedStatement que auto gera pk
+			ResultSet keys = pst.getGeneratedKeys(); // método da classe PreparedStatement que retorna pk
 
 			keys.next();
-            long key = keys.getLong(1);
+            int key = keys.getInt(1);
 			
 			pst.close();
 			
@@ -112,10 +112,10 @@ public class ProdutoDAO implements IGerenciamentoDAO {
 			while(result.next()) {
 				
 				Produto produto = new Produto();
-				produto.setId(result.getLong("id"));
+				produto.setId(result.getInt("id"));
 				produto.setNomeProduto(result.getString("nome"));
 				produto.setPreco(result.getDouble("preco"));
-				produto.setQtd(result.getInt("qtd"));
+				produto.setQtdEstoque(result.getInt("qtd"));
 				
 				produtos.add(produto);
 			}
@@ -146,10 +146,10 @@ public class ProdutoDAO implements IGerenciamentoDAO {
 			while(result.next()) {
 				
 				Produto produto = new Produto();
-				produto.setId(result.getLong("id"));
+				produto.setId(result.getInt("id"));
 				produto.setNomeProduto(result.getString("nome"));
 				produto.setPreco(result.getDouble("preco"));
-				produto.setQtd(result.getInt("qtd"));
+				produto.setQtdEstoque(result.getInt("qtd"));
 				
 				produtos.add(produto);
 			}

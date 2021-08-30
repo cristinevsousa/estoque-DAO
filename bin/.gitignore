@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 /servico/
 /dao/
 /entidade/
 /main/
+=======
+/dao/
+/entidade/
+/main/
+/servico/
+/utils/
+>>>>>>> main

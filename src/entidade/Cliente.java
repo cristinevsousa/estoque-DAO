@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class Cliente {
 
-	private Long id;
+	private int id;
 	private String nomeCliente;
 	private String cpf;
-	private String email;
 	private Date nascimento;
 	private Endereco endereco;
+	private String email;
 	
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getNomeCliente() {

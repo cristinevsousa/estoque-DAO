@@ -6,10 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.cj.xdevapi.Statement;
-
 import entidade.Cliente;
-import entidade.Endereco;
 import utils.Conexao;
 
 public class ClienteDAO implements IGerenciamentoDAO {
@@ -35,48 +32,29 @@ public class ClienteDAO implements IGerenciamentoDAO {
 	}
 
 	@Override
-	public long inserir() {
+	public int inserir() {
 		try {
 
-			PreparedStatement pst = this.conexao.getConexao().prepareStatement(
-					"INSERT INTO endereco (estado, cidade, cep, rua, bairro, numero) VALUES (?,?,?,?,?,?)", 1); // 1 significando parâmetro para retornar valor da PK
-
-			pst.setString(1, cliente.getEndereco().getEstado());
-			pst.setString(2, cliente.getEndereco().getCidade());
-			pst.setString(3, cliente.getEndereco().getCep());
-			pst.setString(4, cliente.getEndereco().getRua());
-			pst.setString(5, cliente.getEndereco().getBairro());
-			pst.setLong(6, cliente.getEndereco().getNumero());
-
-			pst.executeUpdate();
-
-			ResultSet keysEnd = pst.getGeneratedKeys(); // método da classe PreparedStatement que auto gera pk
-
-			keysEnd.next();
-            long keyEnd = keysEnd.getLong(1);
-
-			pst.close();
-
-			PreparedStatement pst2 = this.conexao.getConexao()
-					.prepareStatement("INSERT INTO cliente (nome, cpf, email, nascimento, endereco_id) VALUES (?,?,?,?,?)", 1);
+			PreparedStatement pst = this.conexao.getConexao()
+					.prepareStatement("INSERT INTO cliente (nome, cpf, email, nascimento, endereco_id) VALUES (?,?,?,?,?)", 1); // 1 significando parâmetro para retornar valor da PK
 
 			java.sql.Date dt = new Date(cliente.getNascimento().getYear(), cliente.getNascimento().getMonth(),
 					cliente.getNascimento().getDay());
 
-			pst2.setString(1, cliente.getNomeCliente());
-			pst2.setString(2, cliente.getCpf());
-			pst2.setString(3, cliente.getEmail());
-			pst2.setDate(4, dt);
-			pst2.setLong(5, keyEnd);
+			pst.setString(1, cliente.getNomeCliente());
+			pst.setString(2, cliente.getCpf());
+			pst.setString(3, cliente.getEmail());
+			pst.setDate(4, dt);
+			pst.setInt(5, cliente.getEndereco().getId());
 
-			pst2.executeUpdate();
+			pst.executeUpdate();
 			
-			ResultSet keysCliente = pst2.getGeneratedKeys();
+			ResultSet keysCliente = pst.getGeneratedKeys(); // método da classe PreparedStatement que auto gera pk
 
 			keysCliente.next();
-            long keyCliente = keysCliente.getLong(1);
+            int keyCliente = keysCliente.getInt(1);
 
-			pst2.close();
+			pst.close();
 			
 			return keyCliente;
 
@@ -92,7 +70,7 @@ public class ClienteDAO implements IGerenciamentoDAO {
 		try {
 
 			PreparedStatement pst = this.conexao.getConexao()
-					.prepareStatement("UPDATE cliente SET nome=?, cpf=?, email=?, nascimento=?");
+					.prepareStatement("UPDATE cliente SET nome=?, cpf=?, email=?, nascimento=? WHERE id = ?");
 
 			java.sql.Date dt = new Date(cliente.getNascimento().getYear(), cliente.getNascimento().getMonth(),
 					cliente.getNascimento().getDay());
@@ -101,6 +79,7 @@ public class ClienteDAO implements IGerenciamentoDAO {
 			pst.setString(2, cliente.getCpf());
 			pst.setString(3, cliente.getEmail());
 			pst.setDate(4, dt);
+			pst.setInt(5, cliente.getId());
 
 			pst.executeUpdate();
 
@@ -161,7 +140,7 @@ public class ClienteDAO implements IGerenciamentoDAO {
 			while (result.next()) {
 
 				Cliente cliente = new Cliente();
-				cliente.setId(result.getLong("id"));
+				cliente.setId(result.getInt("id"));
 				cliente.setNomeCliente(result.getString("nome"));
 
 				clientes.add(cliente);
@@ -193,7 +172,7 @@ public class ClienteDAO implements IGerenciamentoDAO {
 			while (result.next()) {
 
 				Cliente cliente = new Cliente();
-				cliente.setId(result.getLong("id"));
+				cliente.setId(result.getInt("id"));
 				cliente.setNomeCliente(result.getString("nome"));
 
 				clientes.add(cliente);

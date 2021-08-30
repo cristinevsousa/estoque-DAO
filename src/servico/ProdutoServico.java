@@ -16,7 +16,7 @@ public class ProdutoServico {
 		conexao = new Conexao();
 	}
 	
-	public long inserirProduto(Produto produto) {
+	public int inserirProduto(Produto produto) {
 		dao.setProduto(produto);
 		dao.setConexao(conexao);
 		
@@ -24,7 +24,7 @@ public class ProdutoServico {
 			
 			conexao.conecta();
 			
-			long id = dao.inserir();
+			int id = dao.inserir();
 			
 			if (id > 0) {
 				conexao.confirmarTransacao();
