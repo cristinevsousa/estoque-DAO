@@ -10,6 +10,12 @@ public class Fornecedor {
 	private String produto;
 	private int qtdEntregue;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getNomeFornecedor() {
 		return nomeFornecedor;
 	}
@@ -28,18 +34,10 @@ public class Fornecedor {
 	public void setProduto(String produto) {
 		this.produto = produto;
 	}
-	public int getQtd() {
+	public int getQtdEntregue() {
 		return qtdEntregue;
 	}
-	public void setQtd(int qtdEntregue) {
+	public void setQtdEntregue(int qtdEntregue) {
 		this.qtdEntregue = qtdEntregue;
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	
 }

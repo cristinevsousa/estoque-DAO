@@ -10,123 +10,124 @@ public class FornecedorServico {
 
 	FornecedorDAO dao;
 	Conexao conexao;
-	
+
 	public FornecedorServico() {
 		dao = new FornecedorDAO();
 		conexao = new Conexao();
 	}
-	
-	public String inserirFornecedor (Fornecedor fornecedor) {
-		dao.setFornecedor (fornecedor);
+
+	public int inserirFornecedor(Fornecedor fornecedor) {
+		dao.setFornecedor(fornecedor);
 		dao.setConexao(conexao);
-		
+
 		try {
-			
+
 			conexao.conecta();
-			
-			if(dao.inserir()) {
+
+			int id = dao.inserir();
+
+			if (id > 0) {
 				conexao.confirmarTransacao();
 			} else {
 				conexao.cancelarTransacao();
 			}
-			
+
 			conexao.fechar();
-			
-		}catch (Exception e) {
+
+			return id;
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			return e.getMessage();
+			return 0;
 		}
-		
-		return "Fornecedor" + fornecedor.getNomeFornecedor() + " inserido com sucesso!";
 	}
-	
+
 	public String alterarCliente(Fornecedor fornecedor) {
 		dao.setFornecedor(fornecedor);
 		dao.setConexao(conexao);
-		
+
 		try {
-			
+
 			conexao.conecta();
-			
-			if(dao.atualizar()) {
+
+			if (dao.atualizar()) {
 				conexao.confirmarTransacao();
 			} else {
 				conexao.cancelarTransacao();
 			}
-			
+
 			conexao.fechar();
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return e.getMessage();
 		}
-		
+
 		return "Fornecedor " + fornecedor.getNomeFornecedor() + " alterado com sucesso!";
 	}
 
-	
 	public String excluirCliente(Fornecedor fornecedor) {
 		dao.setFornecedor(fornecedor);
 		dao.setConexao(conexao);
-		
+
 		try {
-			
+
 			conexao.conecta();
-			
-			if(dao.excluir()) {
+
+			if (dao.excluir()) {
 				conexao.confirmarTransacao();
 			} else {
 				conexao.cancelarTransacao();
 			}
-			
+
 			conexao.fechar();
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return e.getMessage();
 		}
-		
+
 		return "Fornecedor " + fornecedor.getNomeFornecedor() + " excluído com sucesso!";
 	}
-	
+
 	public List<Fornecedor> buscarTodosFornecedores() {
 		dao.setConexao(conexao);
-		
+
 		try {
-			
+
 			conexao.conecta();
-			
+
 			List<Fornecedor> fornecedores = dao.buscarFornecedores();
-			
+
 			conexao.fechar();
-			
+
 			return fornecedores;
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 
 	public List<Fornecedor> buscarFornecedoresPorNome(String nomeFornecedor) {
 		dao.setConexao(conexao);
-		
+
 		try {
-			
+
 			conexao.conecta();
-			
+
 			List<Fornecedor> fornecedores = dao.buscarFornecedores();
-			
+
 			conexao.fechar();
-			
+
 			return fornecedores;
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
-	
+
 }
