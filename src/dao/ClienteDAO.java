@@ -49,7 +49,7 @@ public class ClienteDAO implements IGerenciamentoDAO {
 
 			pst.executeUpdate();
 			
-			ResultSet keysCliente = pst.getGeneratedKeys(); // método da classe PreparedStatement que auto gera pk
+			ResultSet keysCliente = pst.getGeneratedKeys(); // método da classe PreparedStatement que retorna pk
 
 			keysCliente.next();
             int keyCliente = keysCliente.getInt(1);

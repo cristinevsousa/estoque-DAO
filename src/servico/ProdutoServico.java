@@ -89,7 +89,7 @@ public class ProdutoServico {
 			return e.getMessage();
 		}
 		
-		return "Produto " + produto.getNomeProduto() + " excluído com sucesso!";
+		return "Produto excluído com sucesso!";
 	}
 	
 	public List<Produto> buscarTodosProdutos() {

@@ -2,20 +2,13 @@ package entidade;
 
 import java.util.Date;
 
-public class Fornecedor {
+public class Fornecedor extends ClasseBase {
 
-	private int id;
 	private String nomeFornecedor;
 	private Date dataEntrega;
 	private String produto;
 	private int qtdEntregue;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getNomeFornecedor() {
 		return nomeFornecedor;
 	}
@@ -40,4 +33,10 @@ public class Fornecedor {
 	public void setQtdEntregue(int qtdEntregue) {
 		this.qtdEntregue = qtdEntregue;
 	}
+	@Override
+	public String toString() {
+		return "[Id: " + getId() + "Nome Fornecedor: " + nomeFornecedor + ", Data Entrega: " + dataEntrega + ", Produto: " + produto
+				+ ", Qtd. Entregue=" + qtdEntregue + "]";
+	}
+		
 }

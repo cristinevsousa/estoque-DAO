@@ -63,7 +63,6 @@ public class EnderecoDAO implements IGerenciamentoDAO {
 	
 	}
 
-
 	@Override
 	public boolean atualizar() {
 		try {

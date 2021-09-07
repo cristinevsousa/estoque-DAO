@@ -1,8 +1,7 @@
 package entidade;
 
-public class Endereco {
+public class Endereco extends ClasseBase {
 
-	private int id;
 	private String cidade;
 	private String cep;
 	private String estado;
@@ -10,12 +9,6 @@ public class Endereco {
 	private int numero;
 	private String bairro;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getEstado() {
 		return estado;
 	}
@@ -55,7 +48,7 @@ public class Endereco {
 	
 	@Override
 	public String toString() {
-		return "Endereco [id=" + id + ", cidade=" + cidade + ", cep=" + cep + ", estado=" + estado + ", rua=" + rua
+		return "Endereco [id=" + super.getId() + ", cidade=" + cidade + ", cep=" + cep + ", estado=" + estado + ", rua=" + rua
 				+ ", numero=" + numero + ", bairro=" + bairro + "]";
 	}
 	

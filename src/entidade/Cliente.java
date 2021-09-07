@@ -2,21 +2,14 @@ package entidade;
 
 import java.util.Date;
 
-public class Cliente {
+public class Cliente extends ClasseBase {
 
-	private int id;
 	private String nomeCliente;
 	private String cpf;
 	private Date nascimento;
 	private Endereco endereco;
 	private String email;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
@@ -50,7 +43,7 @@ public class Cliente {
 	
 	@Override
 	public String toString() {
-		return "Cliente [codigo=" + id + ", nome=" + nomeCliente + "]";
+		return "[Id: " + super.getId() + ", Nome: " + nomeCliente + ", Cpf: " + cpf + ", Email: " + email + ", Data de nascimento: " + nascimento + "]";
 	}
 	
 }

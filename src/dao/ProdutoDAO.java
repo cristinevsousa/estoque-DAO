@@ -56,17 +56,19 @@ public class ProdutoDAO implements IGerenciamentoDAO {
 			e.printStackTrace();
 			return 0;
 		}
-		
 	}
 
 	@Override
 	public boolean atualizar() {
 		try {
 			
-			PreparedStatement pst = this.conexao.getConexao().prepareStatement("UPDATE produto SET nome = ? WHERE id = ?");
+			PreparedStatement pst = this.conexao.getConexao().prepareStatement("UPDATE produto SET nome=?, preco=?, qtd=?, codigo_barra=? WHERE id = ?");
 			
 			pst.setString(1, produto.getNomeProduto());
-			pst.setLong(2, produto.getId());
+			pst.setDouble(2, produto.getPreco());
+			pst.setInt(3, produto.getQtdEstoque());
+			pst.setLong(4, produto.getCodigoBarra());
+			pst.setInt(5, produto.getId());
 			
 			pst.executeUpdate();
 			

@@ -49,7 +49,7 @@ public class FornecedorDAO implements IGerenciamentoDAO {
 
 			pst.executeUpdate();
 
-			ResultSet keysFornecedor = pst.getGeneratedKeys(); // método da classe PreparedStatement que auto gera pk
+			ResultSet keysFornecedor = pst.getGeneratedKeys(); // método da classe PreparedStatement que retorna pk
 
 			keysFornecedor.next();
 			int keyFornecedor = keysFornecedor.getInt(1);

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import entidade.Cliente;
 import entidade.Endereco;
@@ -14,243 +15,414 @@ import servico.ProdutoServico;
 
 public class Principal {
 
+	static ProdutoServico produtoServico = new ProdutoServico();
+
+	static ClienteServico clienteServico = new ClienteServico();
+
+	private static Scanner scanner = new Scanner(System.in);
+
 	public static void main(String args[]) throws ParseException {
+		int escolha = 5;
 
-		// CLIENTES
-		ClienteServico clienteServico = new ClienteServico();
+		while (true) {
 
-		// Insere cliente 1 com endereço
+			if (escolha == 5) {
+				escolha = menuPrincipal();
+			}
 
-		Cliente cliente1 = new Cliente();
+			if (escolha == 0) {
+				System.out.println("Programa encerrado!");
+				break;
+			}
 
-		cliente1.setNomeCliente("João da Silva");
-		cliente1.setCpf("000.000.000.00");
-		cliente1.setEmail("joao@gmail.com");
-		Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse("20/02/1990");
-		cliente1.setNascimento(dataNascimento);
+			switch (escolha) {
+			case 1:
+				menuProduto();
+				break;
+			case 3:
+				menuCliente();
+				break;
+			default:
+				System.out.println("Opção inválida!");
+				break;
+			}
 
-		Endereco enderecoCliente1 = new Endereco();
-
-		enderecoCliente1.setBairro("Centro");
-		enderecoCliente1.setCep("88054-500");
-		enderecoCliente1.setCidade("Florianópolis");
-		enderecoCliente1.setEstado("SC");
-		enderecoCliente1.setRua("Exemplo de uma rua");
-		enderecoCliente1.setNumero(500);
-
-		EnderecoServico enderecoServico = new EnderecoServico();
-
-		int idEndCliente1 = enderecoServico.inserirEndereco(enderecoCliente1);
-
-		enderecoCliente1.setId(idEndCliente1);
-
-		cliente1.setEndereco(enderecoCliente1);
-
-		int idCliente1 = clienteServico.inserirCliente(cliente1); // variável que salva o id retornado no método
-
-		String msgCliente1Inserido = "Cliente " + cliente1.getNomeCliente() + " inserido com sucesso!";
-
-		if (idCliente1 > 0) { // se o id for maior que 0 é porque foi inserido no banco
-			System.out.println(msgCliente1Inserido);
-		} else {
-			System.out.println("Erro ao inserir cliente");
+			escolha = 5;
 		}
+	}
 
-		// Insere cliente 2 com endereço
+	public static int menuPrincipal() {
 
-		Cliente cliente2 = new Cliente();
+		System.out.println("Escolha uma das opções a seguir:");
+		System.out.println("(1) Cadastro de Produto");
+		System.out.println("(2) Cadastro de Fornecedor");
+		System.out.println("(3) Cadastro de Cliente");
+		System.out.println("(4) Realizar Pedido");
+		System.out.println("(0) Sair");
 
-		cliente2.setNomeCliente("Maria Oliveira");
-		cliente2.setCpf("100.000.000.00");
-		cliente2.setEmail("maria@gmail.com");
-		Date dataNascimento2 = new SimpleDateFormat("dd/MM/yyyy").parse("10/10/1990");
-		cliente2.setNascimento(dataNascimento2);
+		int escolha = scanner.nextInt();
 
-		Endereco enderecoCliente2 = new Endereco();
+		return escolha;
+	}
 
-		enderecoCliente2.setBairro("Vargem Grande");
-		enderecoCliente2.setCep("88054-000");
-		enderecoCliente2.setCidade("Florianópolis");
-		enderecoCliente2.setEstado("SC");
-		enderecoCliente2.setRua("Exemplo de outra rua");
-		enderecoCliente2.setNumero(600);
+	public static int menuCadastro() {
 
-		int idEndCliente2 = enderecoServico.inserirEndereco(enderecoCliente2);
+		System.out.println("Escolha uma das opções a seguir:");
+		System.out.println("(1) Cadastrar");
+		System.out.println("(2) Editar");
+		System.out.println("(3) Remover");
+		System.out.println("(4) Listar Todos Cadastros");
+		System.out.println("(5) Voltar ao Menu principal");
 
-		enderecoCliente2.setId(idEndCliente2);
+		int escolha = scanner.nextInt();
 
-		cliente2.setEndereco(enderecoCliente2);
+		return escolha;
+	}
 
-		int idCliente2 = clienteServico.inserirCliente(cliente2); // variável que salva o id retornado no método
+	public static void menuProduto() {
 
-		String msgCliente2Inserido = "Cliente " + cliente2.getNomeCliente() + " inserido com sucesso!";
-
-		if (idCliente2 > 0) { // se o id for maior que 0 é porque foi inserido no banco
-			System.out.println(msgCliente2Inserido);
-		} else {
-			System.out.println("Erro ao inserir cliente");
+		switch (menuCadastro()) {
+		case 1:
+			cadastraProduto();
+			break;
+		case 2:
+			editaProduto();
+			break;
+		case 3:
+			removeProduto();
+			break;
+		case 4:
+			consultaProdutos();
+			break;
+		case 5:
+			break;
+		default:
+			System.out.println("Opção inválida!");
+			break;
 		}
+	}
 
-		// Altera cliente 2
+	public static Produto infoProduto() {
+		Produto produto = new Produto();
 
-		cliente2.setId(idCliente2); // seta o id para o método que busca (pelo id) o cliente que será alterado
-		cliente2.setEmail("maria2@gmail.com");
-		String msgCliente2Atualizado = clienteServico.alterarCliente(cliente2);
+		System.out.println("nome:");
+		String nome = scanner.nextLine();
+		System.out.println("nome informado: " + nome);
 
-		System.out.println(msgCliente2Atualizado);
+		System.out.println("preço:");
+		double preco = scanner.nextDouble();
+		System.out.println("preço informado: " + preco);
 
-		// Busca cliente por nome
+		System.out.println("quantidade em estoque:");
+		scanner.nextLine();
+		int qtd = scanner.nextInt();
+		System.out.println("quantidade informada: " + qtd);
 
-		List<Cliente> clientes = clienteServico.buscarClientesPorNome("o");
+		System.out.println("código de barra:");
+		scanner.nextLine();
+		long codBarra = scanner.nextLong();
+		System.out.println("código de barra informado: " + codBarra);
 
-		for (Cliente cliente : clientes) {
-			System.out.println(cliente);
-		}
+		produto.setNomeProduto(nome);
+		produto.setPreco(preco);
+		produto.setQtdEstoque(qtd);
+		produto.setCodigoBarra(codBarra);
 
-		// Exclui cliente 2
+		return produto;
+	}
 
-		String msgCliente2Excluido = clienteServico.excluirCliente(cliente2);
+	public static void cadastraProduto() {
 
-		System.out.println(msgCliente2Excluido);
+		System.out.println("Digite as informações do produto");
+		scanner.nextLine();
 
-		// Busca clientes
+		Produto produto = infoProduto();
 
-		List<Cliente> todosClientes = clienteServico.buscarTodosClientes();
+		int idProduto = produtoServico.inserirProduto(produto); // variável que salva o id retornado no método
 
-		for (Cliente cliente : todosClientes) {
-			System.out.println(cliente);
-		}
+		String msgProdutoInserido = "Produto " + produto.getNomeProduto() + " inserido com sucesso!";
+		System.out.println();
 
-		// ENDEREÇOS
-
-		// Insere endereço
-
-		Endereco endereco1 = new Endereco();
-		endereco1.setCidade("Indaial");
-		endereco1.setCep("89138-321");
-		endereco1.setRua("Teste");
-		endereco1.setBairro("Tamanduá");
-		endereco1.setEstado("SC");
-		endereco1.setNumero(12);
-
-		int idEnd1 = enderecoServico.inserirEndereco(endereco1); // variável que salva o id retornado no método
-		String msgEnd1Inserido = "Endereço" + " inserido com sucesso!";
-
-		if (idEnd1 > 0) { // se o id for maior que 0 é porque foi inserido no banco
-			System.out.println(msgEnd1Inserido);
-		} else {
-			System.out.println("Erro ao inserir endereço");
-		}
-
-		// Exclui o endereço inserido para teste
-		int idEndTeste = enderecoServico.inserirEndereco(endereco1);
-		endereco1.setId(idEndTeste);
-		String msgExclusaoEnd = enderecoServico.excluirEndereco(endereco1);
-		System.out.println(msgExclusaoEnd);
-
-		// Altera endereço de cliente já cadastrado antes
-
-		endereco1.setId(idEnd1); // seta o id para o método que busca (pelo id) o cliente que terá o endereço
-									// alterado
-		cliente1.setEndereco(endereco1);
-
-		//String msgAlteraCliente1 = clienteServico.alterarCliente(cliente1);
-		//System.out.println(msgAlteraCliente1);
-
-		// Cria e atualiza em seguida endereço cliente 2
-
-		Endereco endereco2 = new Endereco();
-		endereco2.setCidade("Ascurra");
-		endereco2.setCep("89138-543");
-		endereco2.setRua("Teste");
-		endereco2.setBairro("Ribeirão");
-		endereco2.setEstado("SC");
-		endereco2.setNumero(36);
-
-		int IdEnd2 = enderecoServico.inserirEndereco(endereco2);
-		String msgAlteraEnd = enderecoServico.atualizarEndereco(endereco2);
-		System.out.println(msgAlteraEnd);
-
-		endereco2.setId(IdEnd2); // seta o id para o método que busca (pelo id) o cliente que terá o endereço
-									// alterado
-		cliente2.setEndereco(endereco2);
-		clienteServico.alterarCliente(cliente2);
-
-		System.out.println(msgCliente2Atualizado);
-
-		// Busca endereços
-		List<Endereco> enderecos = enderecoServico.buscarEndereco();
-		for (Endereco endereco : enderecos) {
-			System.out.println(endereco);
-		}
-
-		// PRODUTOS
-		ProdutoServico produtoServico = new ProdutoServico();
-
-		// Insere produto 1
-
-		Produto produto1 = new Produto();
-		produto1.setNomeProduto("copo");
-		produto1.setCodigoBarra(1564829786454L);
-		produto1.setPreco(5.00);
-		produto1.setQtdEstoque(3);
-
-		int idProduto1 = produtoServico.inserirProduto(produto1); // variável que salva o id retornado no método
-		String msgProduto1Inserido = "Produto " + produto1.getNomeProduto() + " inserido com sucesso!";
-
-		if (idProduto1 > 0) { // se o id for maior que 0 é porque foi inserido no banco
-			System.out.println(msgProduto1Inserido);
+		if (idProduto > 0) {
+			System.out.println(msgProdutoInserido);
 		} else {
 			System.out.println("Erro ao inserir produto");
 		}
+	}
 
-		// Insere produto 2
+	public static void editaProduto() {
 
-		Produto produto2 = new Produto();
-		produto2.setNomeProduto("colher");
-		produto2.setCodigoBarra(1864839787456L);
-		produto2.setPreco(2.00);
-		produto2.setQtdEstoque(6);
+		System.out.println("Digite o nome do produto que deseja editar");
 
-		int idProduto2 = produtoServico.inserirProduto(produto2); // variável que salva o id retornado no método
-		String msgProduto2Inserido = "Produto " + produto2.getNomeProduto() + " inserido com sucesso!";
+		scanner.nextLine();
+		String nome = scanner.nextLine();
 
-		if (idProduto2 > 0) { // se o id for maior que 0 é porque foi inserido no banco
-			System.out.println(msgProduto2Inserido);
-		} else {
-			System.out.println("Erro ao inserir produto");
-		}
-
-		// Altera produto 2
-
-		produto2.setId(idProduto2); // seta o id para o método que busca (pelo id) o produto que será alterado
-		produto2.setPreco(2.00);
-		String msgProduto2Atualizado = produtoServico.alterarProduto(produto2);
-
-		System.out.println(msgProduto2Atualizado);
-
-		// Busca produto por nome
-
-		List<Produto> produtos = produtoServico.buscarProdutosPorNome("co");
+		List<Produto> produtos = produtoServico.buscarProdutosPorNome(nome);
 
 		for (Produto produto : produtos) {
 			System.out.println(produto);
 		}
 
-		// Exclui produto 2
+		System.out.println();
+		System.out.println("Digite o id do produto para confirmar");
 
-		String msgProduto2Excluido = produtoServico.excluirProduto(produto2);
+		int idProduto = scanner.nextInt();
+		scanner.nextLine();
+		System.out.println("id informado: " + idProduto);
 
-		System.out.println(msgProduto2Excluido);
+		System.out.println("Digite as novas informações do produto");
 
-		// Busca produtos
+		Produto produto = infoProduto();
+
+		produto.setId(idProduto);
+
+		String msgProdutoAtualizado = produtoServico.alterarProduto(produto);
+
+		System.out.println(msgProdutoAtualizado);
+		System.out.println();
+
+	}
+
+	public static void removeProduto() {
+		System.out.println("Digite o nome do produto que deseja remover");
+		scanner.nextLine();
+
+		String nome = scanner.nextLine();
+
+		List<Produto> produtos = produtoServico.buscarProdutosPorNome(nome);
+
+		for (Produto produto : produtos) {
+			System.out.println(produto);
+		}
+
+		System.out.println("Digite o id do produto para confirmar");
+
+		int idProduto = scanner.nextInt();
+
+		Produto produto = new Produto();
+
+		produto.setId(idProduto);
+		String msgProdutoExcluido = produtoServico.excluirProduto(produto);
+
+		System.out.println(msgProdutoExcluido);
+
+	}
+
+	public static void consultaProdutos() {
 
 		List<Produto> todosProdutos = produtoServico.buscarTodosProdutos();
 
 		for (Produto produto : todosProdutos) {
 			System.out.println(produto);
 		}
+	}
+
+	public static void menuCliente() throws ParseException {
+
+		switch (menuCadastro()) {
+		case 1:
+			cadastraCliente();
+			break;
+		case 2:
+			editaCliente();
+			break;
+		case 3:
+			removeCliente();
+			break;
+		case 4:
+			consultaClientes();
+			break;
+		case 5:
+			break;
+		default:
+			System.out.println("Opção inválida!");
+			break;
+		}
+	}
+
+	public static Cliente infoCliente() throws ParseException {
+		Cliente cliente = new Cliente();
+
+		System.out.println("nome:");
+		String nome = scanner.nextLine();
+		System.out.println("nome informado: " + nome);
+
+		System.out.println("cpf:");
+		String cpf = scanner.nextLine();
+		System.out.println("cpf informado: " + cpf);
+
+		System.out.println("email:");
+		String email = scanner.nextLine();
+		System.out.println("email informado: " + email);
+
+		System.out.println("data de nascimento:");
+		String nascimento = scanner.nextLine();
+		System.out.println("data de nascimento informada: " + nascimento);
+
+		cliente.setNomeCliente(nome);
+		cliente.setCpf(cpf);
+		cliente.setEmail(email);
+		Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(nascimento);
+		cliente.setNascimento(dataNascimento);
+		
+		//início de código *temporário*
+		//setando valores vazios para completar cadastro de cliente enquanto não há método endereço
+		//substituir por método insereEndereco()
+		Endereco enderecoCliente = new Endereco();
+		
+		enderecoCliente.setBairro(""); 
+		enderecoCliente.setCep("");
+		enderecoCliente.setCidade("");
+		enderecoCliente.setEstado("");
+		enderecoCliente.setRua("");
+		enderecoCliente.setNumero(0);
+
+		EnderecoServico enderecoServico = new EnderecoServico();
+		
+		int idEndCliente = enderecoServico.inserirEndereco(enderecoCliente);
+		 
+		enderecoCliente.setId(idEndCliente);
+		 
+		cliente.setEndereco(enderecoCliente);
+		//final de código *temporário*
+		
+		return cliente;
+	}
+
+	public static void cadastraCliente() throws ParseException {
+
+		System.out.println("Digite as informações do cliente");
+		scanner.nextLine();
+
+		Cliente cliente = infoCliente();
+
+		int idCliente = clienteServico.inserirCliente(cliente);
+
+		String msgClienteInserido = "Cliente " + cliente.getNomeCliente() + " inserido com sucesso!";
+		System.out.println();
+
+		if (idCliente > 0) {
+			System.out.println(msgClienteInserido);
+		} else {
+			System.out.println("Erro ao inserir cliente");
+		}
+	}
+
+	public static void editaCliente() throws ParseException {
+
+		System.out.println("Digite o nome do cliente que deseja editar");
+
+		scanner.nextLine();
+		String nome = scanner.nextLine();
+
+		List<Cliente> clientes = clienteServico.buscarClientesPorNome(nome);
+
+		for (Cliente cliente : clientes) {
+			System.out.println(cliente);
+		}
+
+		System.out.println();
+		System.out.println("Digite o id do cliente para confirmar");
+
+		int idCliente = scanner.nextInt();
+		scanner.nextLine();
+		System.out.println("id informado: " + idCliente);
+
+		System.out.println("Digite as novas informações do cliente");
+
+		Cliente cliente = infoCliente();
+
+		cliente.setId(idCliente);
+
+		String msgClienteAtualizado = clienteServico.alterarCliente(cliente);
+
+		System.out.println(msgClienteAtualizado);
+		System.out.println();
 
 	}
 
+	public static void removeCliente() {
+		System.out.println("Digite o nome do cliente que deseja remover");
+		scanner.nextLine();
+
+		String nome = scanner.nextLine();
+
+		List<Cliente> clientes = clienteServico.buscarClientesPorNome(nome);
+
+		for (Cliente cliente : clientes) {
+			System.out.println(cliente);
+		}
+
+		System.out.println("Digite o id do cliente para confirmar");
+
+		int idCliente = scanner.nextInt();
+
+		Cliente cliente = new Cliente();
+
+		cliente.setId(idCliente);
+		String msgClienteExcluido = clienteServico.excluirCliente(cliente);
+
+		System.out.println(msgClienteExcluido);
+
+	}
+
+	public static void consultaClientes() {
+
+		List<Cliente> todosClientes = clienteServico.buscarTodosClientes();
+
+		for (Cliente cliente : todosClientes) {
+			System.out.println(cliente);
+		}
+	}
 }
+
+/*
+ * // ENDEREÇOS
+ * 
+ * // Insere endereço
+ * 
+ * Endereco endereco1 = new Endereco(); endereco1.setCidade("Indaial");
+ * endereco1.setCep("89138-321"); endereco1.setRua("Teste");
+ * endereco1.setBairro("Tamanduá"); endereco1.setEstado("SC");
+ * endereco1.setNumero(12);
+ * 
+ * int idEnd1 = enderecoServico.inserirEndereco(endereco1); String
+ * msgEnd1Inserido = "Endereço" + " inserido com sucesso!";
+ * 
+ * if (idEnd1 > 0) { System.out.println(msgEnd1Inserido); } else {
+ * System.out.println("Erro ao inserir endereço"); }
+ * 
+ * // Exclui o endereço inserido para teste int idEndTeste =
+ * enderecoServico.inserirEndereco(endereco1); endereco1.setId(idEndTeste);
+ * String msgExclusaoEnd = enderecoServico.excluirEndereco(endereco1);
+ * System.out.println(msgExclusaoEnd);
+ * 
+ * endereco1.setId(idEnd1);
+ * 
+ * cliente1.setEndereco(endereco1);
+ * 
+ * // String msgAlteraCliente1 = clienteServico.alterarCliente(cliente1); //
+ * System.out.println(msgAlteraCliente1);
+ * 
+ * // Cria e atualiza em seguida endereço cliente 2
+ * 
+ * Endereco endereco2 = new Endereco(); endereco2.setCidade("Ascurra");
+ * endereco2.setCep("89138-543"); endereco2.setRua("Teste");
+ * endereco2.setBairro("Ribeirão"); endereco2.setEstado("SC");
+ * endereco2.setNumero(36);
+ * 
+ * int IdEnd2 = enderecoServico.inserirEndereco(endereco2); String msgAlteraEnd
+ * = enderecoServico.atualizarEndereco(endereco2);
+ * System.out.println(msgAlteraEnd);
+ * 
+ * endereco2.setId(IdEnd2); cliente2.setEndereco(endereco2);
+ * clienteServico.alterarCliente(cliente2);
+ * 
+ * System.out.println(msgCliente2Atualizado);
+ * 
+ * // Busca endereços List<Endereco> enderecos =
+ * enderecoServico.buscarEndereco(); for (Endereco endereco : enderecos) {
+ * System.out.println(endereco); }
+ * 
+ * }
+ */

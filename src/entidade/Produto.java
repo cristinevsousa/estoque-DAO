@@ -1,19 +1,12 @@
 package entidade;
 
-public class Produto {
+public class Produto extends ClasseBase {
 
-	private int id;
 	private String nomeProduto;
 	private int qtdEstoque;
 	private double preco;
 	private long codigoBarra;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getNomeProduto() {
 		return nomeProduto;
 	}
@@ -40,6 +33,6 @@ public class Produto {
 	}
 	@Override
 	public String toString() {
-		return "Produto [Produto=" + nomeProduto + ", preco=" + preco + ", qtd=" + qtdEstoque + "]";
+		return "[Id: " + getId() + ", Produto: " + nomeProduto + ", Preço: " + preco + ", Quantidade: " + qtdEstoque + ", Cód. de barra: " + codigoBarra + "]";
 	}	
 }

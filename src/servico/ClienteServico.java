@@ -89,7 +89,7 @@ public class ClienteServico {
 			return e.getMessage();
 		}
 		
-		return "Cliente " + cliente.getNomeCliente() + " excluído com sucesso!";
+		return "Cliente excluído com sucesso!";
 	}
 	
 	public List<Cliente> buscarTodosClientes() {
