@@ -118,6 +118,7 @@ public class ProdutoDAO implements IGerenciamentoDAO {
 				produto.setNomeProduto(result.getString("nome"));
 				produto.setPreco(result.getDouble("preco"));
 				produto.setQtdEstoque(result.getInt("qtd"));
+				produto.setCodigoBarra(result.getLong("codigo_barra"));
 				
 				produtos.add(produto);
 			}
@@ -152,6 +153,7 @@ public class ProdutoDAO implements IGerenciamentoDAO {
 				produto.setNomeProduto(result.getString("nome"));
 				produto.setPreco(result.getDouble("preco"));
 				produto.setQtdEstoque(result.getInt("qtd"));
+				produto.setCodigoBarra(result.getLong("codigo_barra"));
 				
 				produtos.add(produto);
 			}

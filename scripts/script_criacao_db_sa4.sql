@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `db_sa4`.`endereco` (
   `numero` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 99
+AUTO_INCREMENT = 115
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -43,14 +43,14 @@ CREATE TABLE IF NOT EXISTS `db_sa4`.`cliente` (
   `cpf` VARCHAR(15) NULL DEFAULT NULL,
   `email` VARCHAR(200) NULL DEFAULT NULL,
   `nascimento` DATE NULL DEFAULT NULL,
-  `endereco_id` BIGINT NOT NULL,
+  `endereco_id` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_cliente_endereco1_idx` (`endereco_id` ASC) VISIBLE,
   CONSTRAINT `fk_cliente_endereco1`
     FOREIGN KEY (`endereco_id`)
     REFERENCES `db_sa4`.`endereco` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 72
+AUTO_INCREMENT = 81
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -61,8 +61,42 @@ CREATE TABLE IF NOT EXISTS `db_sa4`.`fornecedor` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(50) NULL DEFAULT NULL,
   `email` VARCHAR(50) NULL DEFAULT NULL,
-  `telefone` VARCHAR(45) NULL,
+  `telefone` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `db_sa4`.`produto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_sa4`.`produto` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `qtd` INT NULL DEFAULT NULL,
+  `preco` FLOAT NULL DEFAULT NULL,
+  `codigo_barra` BIGINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 98
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `db_sa4`.`fornecedor_produto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_sa4`.`fornecedor_produto` (
+  `fornecedor_id` INT NOT NULL AUTO_INCREMENT,
+  `produto_id` INT NOT NULL,
+  PRIMARY KEY (`fornecedor_id`, `produto_id`),
+  INDEX `fk_fornecedor_has_produto_produto1_idx` (`produto_id` ASC) VISIBLE,
+  INDEX `fk_fornecedor_has_produto_fornecedor1_idx` (`fornecedor_id` ASC) VISIBLE,
+  CONSTRAINT `fk_fornecedor_has_produto_fornecedor1`
+    FOREIGN KEY (`fornecedor_id`)
+    REFERENCES `db_sa4`.`fornecedor` (`id`),
+  CONSTRAINT `fk_fornecedor_has_produto_produto1`
+    FOREIGN KEY (`produto_id`)
+    REFERENCES `db_sa4`.`produto` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -79,28 +113,6 @@ CREATE TABLE IF NOT EXISTS `db_sa4`.`pedido` (
     FOREIGN KEY (`cliente_id`)
     REFERENCES `db_sa4`.`cliente` (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `db_sa4`.`produto`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_sa4`.`produto` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NOT NULL,
-  `qtd` INT NULL DEFAULT NULL,
-  `preco` FLOAT NULL DEFAULT NULL,
-  `codigo_barra` BIGINT NULL DEFAULT NULL,
-  `fornecedor_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `fornecedor_id`),
-  INDEX `fk_produto_fornecedor1_idx` (`fornecedor_id` ASC) VISIBLE,
-  CONSTRAINT `fk_produto_fornecedor1`
-    FOREIGN KEY (`fornecedor_id`)
-    REFERENCES `db_sa4`.`fornecedor` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 81
 DEFAULT CHARACTER SET = utf8mb3;
 
 

@@ -141,10 +141,10 @@ public class Principal {
 		int idProduto = produtoServico.inserirProduto(produto); // variável que salva o id retornado no método
 
 		String msgProdutoInserido = "Produto " + produto.getNomeProduto() + " inserido com sucesso!";
-		System.out.println();
 
 		if (idProduto > 0) {
 			System.out.println(msgProdutoInserido);
+			System.out.println();
 		} else {
 			System.out.println("Erro ao inserir produto");
 		}
@@ -205,7 +205,7 @@ public class Principal {
 		String msgProdutoExcluido = produtoServico.excluirProduto(produto);
 
 		System.out.println(msgProdutoExcluido);
-
+		System.out.println();
 	}
 
 	public static void consultaProdutos() {
@@ -215,6 +215,8 @@ public class Principal {
 		for (Produto produto : todosProdutos) {
 			System.out.println(produto);
 		}
+		
+		System.out.println();
 	}
 
 	public static void menuCliente() throws ParseException {
@@ -265,27 +267,6 @@ public class Principal {
 		Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(nascimento);
 		cliente.setNascimento(dataNascimento);
 		
-		//início de código *temporário*
-		//setando valores vazios para completar cadastro de cliente enquanto não há método endereço
-		//substituir por método insereEndereco()
-		Endereco enderecoCliente = new Endereco();
-		
-		enderecoCliente.setBairro(""); 
-		enderecoCliente.setCep("");
-		enderecoCliente.setCidade("");
-		enderecoCliente.setEstado("");
-		enderecoCliente.setRua("");
-		enderecoCliente.setNumero(0);
-
-		EnderecoServico enderecoServico = new EnderecoServico();
-		
-		int idEndCliente = enderecoServico.inserirEndereco(enderecoCliente);
-		 
-		enderecoCliente.setId(idEndCliente);
-		 
-		cliente.setEndereco(enderecoCliente);
-		//final de código *temporário*
-		
 		return cliente;
 	}
 
@@ -299,10 +280,10 @@ public class Principal {
 		int idCliente = clienteServico.inserirCliente(cliente);
 
 		String msgClienteInserido = "Cliente " + cliente.getNomeCliente() + " inserido com sucesso!";
-		System.out.println();
 
 		if (idCliente > 0) {
 			System.out.println(msgClienteInserido);
+			System.out.println();
 		} else {
 			System.out.println("Erro ao inserir cliente");
 		}
@@ -363,7 +344,7 @@ public class Principal {
 		String msgClienteExcluido = clienteServico.excluirCliente(cliente);
 
 		System.out.println(msgClienteExcluido);
-
+		System.out.println();
 	}
 
 	public static void consultaClientes() {
@@ -373,6 +354,8 @@ public class Principal {
 		for (Cliente cliente : todosClientes) {
 			System.out.println(cliente);
 		}
+		
+		System.out.println();
 	}
 }
 

@@ -36,7 +36,7 @@ public class ClienteDAO implements IGerenciamentoDAO {
 		try {
 
 			PreparedStatement pst = this.conexao.getConexao()
-					.prepareStatement("INSERT INTO cliente (nome, cpf, email, nascimento, endereco_id) VALUES (?,?,?,?,?)", 1); // 1 significando parâmetro para retornar valor da PK
+					.prepareStatement("INSERT INTO cliente (nome, cpf, email, nascimento) VALUES (?,?,?,?)", 1); // 1 significando parâmetro para retornar valor da PK
 
 			java.sql.Date dt = new Date(cliente.getNascimento().getYear(), cliente.getNascimento().getMonth(),
 					cliente.getNascimento().getDay());
@@ -45,7 +45,6 @@ public class ClienteDAO implements IGerenciamentoDAO {
 			pst.setString(2, cliente.getCpf());
 			pst.setString(3, cliente.getEmail());
 			pst.setDate(4, dt);
-			pst.setInt(5, cliente.getEndereco().getId());
 
 			pst.executeUpdate();
 			
@@ -62,7 +61,6 @@ public class ClienteDAO implements IGerenciamentoDAO {
 			e.printStackTrace();
 			return 0;
 		}
-
 	}
 
 	@Override
@@ -84,21 +82,6 @@ public class ClienteDAO implements IGerenciamentoDAO {
 			pst.executeUpdate();
 
 			pst.close();
-
-			PreparedStatement pst2 = this.conexao.getConexao().prepareStatement(
-					"UPDATE endereco SET estado=?, cidade=?, cep=?, rua=?, bairro=?, numero=? WHERE id=?");
-
-			pst2.setString(1, cliente.getEndereco().getEstado());
-			pst2.setString(2, cliente.getEndereco().getCidade());
-			pst2.setString(3, cliente.getEndereco().getCep());
-			pst2.setString(4, cliente.getEndereco().getRua());
-			pst2.setString(5, cliente.getEndereco().getBairro());
-			pst2.setLong(6, cliente.getEndereco().getNumero());
-			pst2.setLong(7, cliente.getId());
-
-			pst2.executeUpdate();
-
-			pst2.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,6 +125,9 @@ public class ClienteDAO implements IGerenciamentoDAO {
 				Cliente cliente = new Cliente();
 				cliente.setId(result.getInt("id"));
 				cliente.setNomeCliente(result.getString("nome"));
+				cliente.setCpf(result.getString("cpf"));
+				cliente.setNascimento(result.getDate("nascimento"));
+				cliente.setEmail(result.getString("email"));
 
 				clientes.add(cliente);
 			}
@@ -174,6 +160,9 @@ public class ClienteDAO implements IGerenciamentoDAO {
 				Cliente cliente = new Cliente();
 				cliente.setId(result.getInt("id"));
 				cliente.setNomeCliente(result.getString("nome"));
+				cliente.setCpf(result.getString("cpf"));
+				cliente.setNascimento(result.getDate("nascimento"));
+				cliente.setEmail(result.getString("email"));
 
 				clientes.add(cliente);
 			}
