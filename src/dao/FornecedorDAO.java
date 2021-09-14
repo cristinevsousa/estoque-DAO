@@ -1,6 +1,5 @@
 package dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -36,16 +35,12 @@ public class FornecedorDAO implements IGerenciamentoDAO {
 		try {
 
 			PreparedStatement pst = this.conexao.getConexao().prepareStatement(
-					"INSERT INTO fornecedor (nomeFornecedor, dataEntrega, produto, qtdEntregue) VALUES (?, ?, ?, ?)",
+					"INSERT INTO fornecedor (nome, email, telefone) VALUES (?, ?, ?)",
 					1); // 1 significando parâmetro para retornar valor da PK
 
-			java.sql.Date dt = new Date(fornecedor.getDataEntrega().getYear(), fornecedor.getDataEntrega().getMonth(),
-					fornecedor.getDataEntrega().getDay());
-
-			pst.setString(1, fornecedor.getNomeFornecedor());
-			pst.setDate(2, dt);
-			pst.setString(3, fornecedor.getProduto());
-			pst.setInt(4, fornecedor.getQtdEntregue());
+			pst.setString(1, fornecedor.getNome());
+			pst.setString(2, fornecedor.getEmail());
+			pst.setString(3, fornecedor.getTelefone());
 
 			pst.executeUpdate();
 
@@ -69,16 +64,12 @@ public class FornecedorDAO implements IGerenciamentoDAO {
 		try {
 
 			PreparedStatement pst = this.conexao.getConexao().prepareStatement(
-					"UPDATE endereco SET nomeFornecedor = ?, dataEntrega = ?, produto = ?, qtdEntregue = ? WHERE id = ?");
+					"UPDATE endereco SET nome = ?, email = ?, telefone = ? WHERE id = ?");
 
-			java.sql.Date dt = new Date(fornecedor.getDataEntrega().getYear(), fornecedor.getDataEntrega().getMonth(),
-					fornecedor.getDataEntrega().getDay());
-
-			pst.setString(1, fornecedor.getNomeFornecedor());
-			pst.setDate(2, dt);
-			pst.setString(3, fornecedor.getProduto());
-			pst.setInt(4, fornecedor.getQtdEntregue());
-			pst.setInt(5, fornecedor.getId());
+			pst.setString(1, fornecedor.getNome());
+			pst.setString(2, fornecedor.getEmail());
+			pst.setString(3, fornecedor.getTelefone());
+			pst.setInt(4, fornecedor.getId());
 
 			pst.executeUpdate();
 
@@ -118,7 +109,7 @@ public class FornecedorDAO implements IGerenciamentoDAO {
 
 		try {
 
-			PreparedStatement pst = this.conexao.getConexao().prepareStatement("SELECT * FROMfornecedore");
+			PreparedStatement pst = this.conexao.getConexao().prepareStatement("SELECT * FROM fornecedor");
 
 			ResultSet result = pst.executeQuery();
 
@@ -127,6 +118,8 @@ public class FornecedorDAO implements IGerenciamentoDAO {
 				Fornecedor fornecedor = new Fornecedor();
 				fornecedor.setId(result.getInt("id"));
 				fornecedor.setNomeFornecedor(result.getString("nome"));
+				fornecedor.setEmail(result.getString("email"));
+				fornecedor.setTelefone(result.getString("telefone"));
 
 				fornecedores.add(fornecedor);
 			}
@@ -142,7 +135,7 @@ public class FornecedorDAO implements IGerenciamentoDAO {
 		return fornecedores;
 	}
 
-	public List<Fornecedor> buscarFornecedorsPorNome(String nome) {
+	public List<Fornecedor> buscarFornecedorsPorNome(String nome, String email, String telefone) {
 		List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
 
 		try {

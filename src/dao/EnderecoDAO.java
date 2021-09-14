@@ -36,14 +36,14 @@ public class EnderecoDAO implements IGerenciamentoDAO {
 		try {
 			
 			PreparedStatement pst = this.conexao.getConexao().prepareStatement
-					("INSERT INTO endereco (cidade, cep, rua, bairro, estado, numero) VALUES (?, ?, ?, ?, ?, ?)", 1); // 1 significando parâmetro para retornar valor da PK
+					("INSERT INTO endereco (cidade, cep, estado, rua, numero, bairro) VALUES (?, ?, ?, ?, ?, ?)", 1); // 1 significando parâmetro para retornar valor da PK
 			
 			pst.setString(1, endereco.getCidade());
 			pst.setString(2, endereco.getCep());
-			pst.setString(3, endereco.getRua());
-			pst.setString(4, endereco.getBairro());
-			pst.setString(5, endereco.getEstado());
-			pst.setInt(6, endereco.getNumero());
+			pst.setString(3, endereco.getEstado());
+			pst.setString(4, endereco.getRua());
+			pst.setInt(5, endereco.getNumero());
+			pst.setString(6, endereco.getBairro());
 			
 			pst.executeUpdate();
 
@@ -68,14 +68,14 @@ public class EnderecoDAO implements IGerenciamentoDAO {
 		try {
 			
 			PreparedStatement pst = this.conexao.getConexao().prepareStatement
-					("UPDATE endereco SET cidade = ?, cep = ?, estado = ?, rua = ?, bairro = ?, numero = ? WHERE id = ?");
+					("UPDATE endereco SET cidade = ?, cep = ?, estado = ?, rua = ?, numero = ?, bairro = ? WHERE id = ?");
 			
 			pst.setString(1, endereco.getCidade());
 			pst.setString(2, endereco.getCep());
 			pst.setString(3, endereco.getEstado());
 			pst.setString(4, endereco.getRua());
-			pst.setString(5, endereco.getBairro());
-			pst.setInt(6, endereco.getNumero());
+			pst.setInt(5, endereco.getNumero());
+			pst.setString(6, endereco.getBairro());
 			pst.setInt(7, endereco.getId());
 			
 			pst.executeUpdate();
@@ -128,8 +128,8 @@ public class EnderecoDAO implements IGerenciamentoDAO {
 				endereco.setCep(result.getString("cep"));
 				endereco.setEstado(result.getString("estado"));
 				endereco.setRua(result.getString("rua"));
-				endereco.setBairro(result.getString("bairro"));
 				endereco.setNumero(result.getInt("numero"));
+				endereco.setBairro(result.getString("bairro"));
 				
 				enderecos.add(endereco);
 			}
