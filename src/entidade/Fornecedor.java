@@ -1,42 +1,34 @@
 package entidade;
 
-import java.util.Date;
-
 public class Fornecedor extends ClasseBase {
 
-	private String nomeFornecedor;
-	private Date dataEntrega;
-	private String produto;
-	private int qtdEntregue;
+	private String nome;
+	private String email;
+	private String telefone;
 	
-	public String getNomeFornecedor() {
-		return nomeFornecedor;
+	public String getNome() {
+		return nome;
 	}
-	public void setNomeFornecedor(String nomeFornecedor) {
-		this.nomeFornecedor = nomeFornecedor;
+	public void setNomeFornecedor(String nome) {
+		this.nome = nome;
 	}
-	public Date getDataEntrega() {
-		return dataEntrega;
+	
+	public String getEmail() {
+		return email;
 	}
-	public void setDataEntrega(Date dataEntrega) {
-		this.dataEntrega = dataEntrega;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getProduto() {
-		return produto;
+	public String getTelefone() {
+		return telefone;
 	}
-	public void setProduto(String produto) {
-		this.produto = produto;
-	}
-	public int getQtdEntregue() {
-		return qtdEntregue;
-	}
-	public void setQtdEntregue(int qtdEntregue) {
-		this.qtdEntregue = qtdEntregue;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 	@Override
 	public String toString() {
-		return "[Id: " + getId() + "Nome Fornecedor: " + nomeFornecedor + ", Data Entrega: " + dataEntrega + ", Produto: " + produto
-				+ ", Qtd. Entregue=" + qtdEntregue + "]";
+		return "[Id: " + getId() + "Nome Fornecedor: " + nome + "E-Mail: " + email
+				+ ", Telefone =" + telefone + "]";
 	}
 		
 }
