@@ -42,7 +42,7 @@ public class FornecedorServico {
 		}
 	}
 
-	public String alterarCliente(Fornecedor fornecedor) {
+	public String alterarFornecedor(Fornecedor fornecedor) {
 		dao.setFornecedor(fornecedor);
 		dao.setConexao(conexao);
 
@@ -63,10 +63,10 @@ public class FornecedorServico {
 			return e.getMessage();
 		}
 
-		return "Fornecedor " + fornecedor.getNomeFornecedor() + " alterado com sucesso!";
+		return "Fornecedor " + fornecedor.getNome() + " alterado com sucesso!";
 	}
 
-	public String excluirCliente(Fornecedor fornecedor) {
+	public String excluirFornecedor(Fornecedor fornecedor) {
 		dao.setFornecedor(fornecedor);
 		dao.setConexao(conexao);
 
@@ -87,7 +87,7 @@ public class FornecedorServico {
 			return e.getMessage();
 		}
 
-		return "Fornecedor " + fornecedor.getNomeFornecedor() + " excluído com sucesso!";
+		return "Fornecedor " + fornecedor.getNome() + " excluído com sucesso!";
 	}
 
 	public List<Fornecedor> buscarTodosFornecedores() {
@@ -110,7 +110,7 @@ public class FornecedorServico {
 
 	}
 
-	public List<Fornecedor> buscarFornecedoresPorNome(String nomeFornecedor) {
+	public List<Fornecedor> buscarFornecedorPorNome(String nomeFornecedor) {
 		dao.setConexao(conexao);
 
 		try {

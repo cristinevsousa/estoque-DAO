@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.EnderecoDAO;
 import entidade.Endereco;
+import entidade.Fornecedor;
 import utils.Conexao;
 
 public class EnderecoServico {
@@ -89,10 +90,30 @@ public class EnderecoServico {
 
 	}
 
-	public List<Endereco> buscarEndereco() {
+	public List<Endereco> buscarEnderecoPorCidade(String cidade) {
 		dao.setConexao(conexao);
 
 		try {
+			conexao.conecta();
+
+			List<Endereco> enderecos = dao.buscarEnderecos();
+
+			conexao.fechar();
+
+			return enderecos;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
+	public List<Endereco> buscarTodosEnderecos() {
+		dao.setConexao(conexao);
+
+		try {
+
 			conexao.conecta();
 
 			List<Endereco> enderecos = dao.buscarEnderecos();
